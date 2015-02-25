@@ -23,7 +23,7 @@
 
 			<a class="btn btn-list tooltip" ng-href="#/checkins/{{currentUser.regUser}}/{{key}}"><span>Go to checkin URL</span></a><!--Checkin Button!-->
 
-			<button class="btn btn-delete tooltip" ng-click="deleteMeeting(key)"><span>Delete this meeting</span></button><!--Delete Buttton!-->
+			<button class="btn btn-delete tooltip" confirmation-needed="Are you sure you want to delete this meeting?" ng-click="deleteMeeting(key)"><span>Delete this meeting</span></button><!--Delete Buttton!-->
 
 			<span class="text">{{meeting.name}}</p></span>
 		</div><!--Meetings List!-->

@@ -33,11 +33,13 @@
 	</div><!--Search box!-->
 
 	<ul class="userlist cf">
-		<li ng-repeat="checkin in checkins | orderBy: order:direction | filter: { $id: recordId, $: query}">
+		<li ng-class="checkin.userState" ng-repeat="checkin in checkins | orderBy: order:direction | filter: { $id: recordId, $: query}">
 			<div class="checkin">
 				<div class="buttons" ng-show="signedIn()">
 
-					<button class="btn btn-delete tooltip" ng-click="deleteCheckin(checkin.$id)"><span>Delete this checkin</span></button><!--Delete checkin Buttton!-->
+					<button class="btn btn-love tooltip" ng-click="showLove(checkin)"><span>Show the love</span></button><!--Show Love Buttton!-->
+
+					<button class="btn btn-delete tooltip" confirmation-needed="Are you sure you want to delete checkin?" ng-click="deleteCheckin(checkin.$id)"><span>Delete this checkin</span></button><!--Delete checkin Buttton!-->
 
 				</div>
 				<div class="info">
@@ -46,6 +48,25 @@
 						{{checkin.date | date: "MMM d, yy h:mm a"}}
 					</div><!--Date!-->
 				</div><!--Info!-->
+
+				<div class="showcheckins" ng-show="checkin.show">
+					<form class="cf" ng-submit="giveLove(checkin, checkin.giftText)" novalidate>
+						<input type="text" ng-model="checkin.giftText" name="giftText" placeholder="What are you giving them?" ng-required="true">
+						<button type="submit" class="btn" ng-disabled="	myform.$invalid">+</button>
+					</form>
+					<ul class="awardslist cf">
+						<li class="cf" ng-repeat="(key, award) in checkin.awards">
+							<div class="award">{{award.name}}
+								<div class="buttons" ng-show="signedIn()">
+
+									<button class="btn btn-delete tooltip" confirmation-needed="Are you sure you want to delete this award?" ng-click="deleteLove(checkin.$id, key)"><span>Delete this award</span></button><!--Delete checkin Buttton!-->
+									
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div><!--showcheckins!-->
+
 			</div><!--Checkin!-->
 		</li>
 	</ul>
